@@ -7,12 +7,19 @@ if (process.argv.length<3) {
 
 const password = process.argv[2]
 
-// const url =`mongodb+srv://fullstack:${password}@cluster0.emktwx2.mongodb.net/phonebook-db?retryWrites=true&w=majority`
-const url = "mongodb://0.0.0.0:27017/phonebook-db";
+const url =`mongodb+srv://fullstack:${password}@cluster0.emktwx2.mongodb.net/phonebook-db?retryWrites=true&w=majority&appName=Cluster0`
+//const url = "mongodb://0.0.0.0:27017/phonebook-db";
 
-mongoose.set('strictQuery',false)
+mongoose.set('strictQuery', false)
 
+console.log(url);
 mongoose.connect(url)
+    .then(() => {
+        console.log('connected to MongoDB')
+    })
+    .catch(error => {
+        console.log('error connecting to MongoDB:', error.message)
+    })
 
 const personSchema = new mongoose.Schema({
     name: String,

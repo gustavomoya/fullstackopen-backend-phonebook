@@ -41,7 +41,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 app.post('/api/persons', async (request, response, next) => {
     const body = request.body;
 
-    const savedPerson = await Person.find({name: body.name});
+    const savedPerson = await Person.find({ name: body.name });
 
     if (savedPerson.length > 0) {
         return response.status(400).json({
@@ -67,7 +67,7 @@ app.put('/api/persons/:id', (request, response, next) => {
         number: body.number
     }
 
-    Person.findByIdAndUpdate(request.params.id, person, {new: true, runValidators: true, context: 'query'})
+    Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true, context: 'query' })
         .then(p => {
             response.json(p)
         })
@@ -76,7 +76,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
     Person.findByIdAndDelete(request.params.id)
-        .then(result => {
+        .then(() => {
             response.status(204).end();
         })
         .catch(error => next(error));
